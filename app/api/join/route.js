@@ -75,7 +75,7 @@ export async function POST(request) {
   const stateCode = (member.wardCode.split("-")[0] || member.state.slice(0, 3)).toUpperCase();
   const reference = `VM-${stateCode}-${String(existing.length + 1).padStart(6, "0")}`;
 
-  const stored = await save("members", { reference, ...member });
+  const stored = await save("members", { reference, registration: "full", ...member });
   if (!stored) {
     return json({ error: "We couldn't save your registration just now. Please try again shortly." }, 503);
   }

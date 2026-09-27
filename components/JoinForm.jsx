@@ -85,7 +85,9 @@ export default function JoinForm() {
   const geo = useGeography(values.state, values.lga, values.ward);
   const unit = useMemo(() => geo.units.find((u) => u.value === values.pollingUnitCode), [geo.units, values.pollingUnitCode]);
 
-  const set = (key) => (value) =>
+  const set = (key) => (value) => {
+    // A field's message goes as soon as the member changes it.
+    setErrors((e) => (e[key] ? { ...e, [key]: undefined } : e));
     setValues((v) => {
       const next = { ...v, [key]: value };
       // Changing a place clears everything beneath it.
@@ -94,6 +96,7 @@ export default function JoinForm() {
       if (key === "ward") next.pollingUnitCode = "";
       return next;
     });
+  };
   const bind = (key) => ({
     value: values[key],
     onChange: (e) => set(key)(e.target.value),

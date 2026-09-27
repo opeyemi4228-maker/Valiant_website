@@ -1,4 +1,4 @@
-import JoinForm from "@/components/JoinForm";
+import JoinRegistration from "@/components/JoinRegistration";
 import PageHero from "@/components/PageHero";
 import { WhatsappIcon } from "@/components/ui";
 import { site } from "@/lib/site";
@@ -6,11 +6,11 @@ import { site } from "@/lib/site";
 export const metadata = {
   title: "Join Us",
   description:
-    "Register as a member of the Valiant Movement. Choose your ward and polling unit and join Nigerians building a new nation with courage, character and service.",
+    "Register as a member of the Valiant Movement, in full or in under a minute with your NIN. Choose your ward and polling unit and join Nigerians building a new nation with courage, character and service.",
 };
 
 const journey = [
-  { title: "Register", body: "Complete this form in about three minutes." },
+  { title: "Register", body: "In full, or in under a minute with your NIN." },
   { title: "Orientation", body: "Your chapter introduces you to our vision, values and structure." },
   { title: "Induction", body: "Take the Valiant Pledge and begin to serve." },
 ];
@@ -31,7 +31,7 @@ export default function JoinPage() {
       <section className="bg-cream py-16 sm:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-8">
-            <JoinForm />
+            <JoinRegistration />
           </div>
 
           <aside className="lg:col-span-4">
