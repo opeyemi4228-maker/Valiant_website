@@ -43,6 +43,7 @@ export function Sunrise() {
  *
  *   parent    optional { label, href }, the middle step of the breadcrumb
  *   children  optional calls to action under the intro
+ *   visual    optional element that takes the arch's place on the right
  */
 export default function PageHero({
   kicker,
@@ -54,6 +55,7 @@ export default function PageHero({
   imagePosition = "center",
   parent,
   children,
+  visual,
 }) {
   const lines = accent ? [title, accent] : [title];
   const trail = [{ label: "Home", href: "/" }, ...(parent ? [parent] : [])];
@@ -101,6 +103,11 @@ export default function PageHero({
           )}
         </div>
 
+        {visual ? (
+          <Reveal delay={0.2} y={60} className="relative lg:col-span-5">
+            {visual}
+          </Reveal>
+        ) : (
         <Reveal delay={0.2} y={60} className="relative lg:col-span-5">
           <div className="relative mx-auto w-[min(58vw,15rem)] sm:w-72 lg:ml-auto lg:mr-0 lg:w-full lg:max-w-[23rem]">
             <div aria-hidden className="absolute -inset-3 rounded-t-full border border-white/15 sm:-inset-4" />
@@ -132,6 +139,7 @@ export default function PageHero({
             </div>
           </div>
         </Reveal>
+        )}
       </div>
     </section>
   );

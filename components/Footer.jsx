@@ -20,6 +20,7 @@ const columns = [
       { label: "Join Us", href: "/join" },
       { label: "Membership & Culture", href: "/membership" },
       { label: "Programmes", href: "/programmes" },
+      { label: "The Valiant App", href: "/app" },
       { label: "Choir Competition", href: "/programmes/choir" },
     ],
   },

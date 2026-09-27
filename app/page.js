@@ -3,6 +3,7 @@ import Manifesto from "@/components/home/Manifesto";
 import StandFor from "@/components/home/StandFor";
 import Founder from "@/components/home/Founder";
 import Programmes from "@/components/home/Programmes";
+import AppShowcase from "@/components/home/AppShowcase";
 import GalleryRail from "@/components/home/GalleryRail";
 import JoinCta from "@/components/home/JoinCta";
 
@@ -14,6 +15,7 @@ export default function HomePage() {
       <StandFor />
       <Founder />
       <Programmes />
+      <AppShowcase />
       <GalleryRail />
       <JoinCta />
     </>

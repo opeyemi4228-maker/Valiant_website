@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import clsx from "clsx";
 import { nav, site } from "@/lib/site";
 
@@ -183,13 +183,13 @@ export default function Header() {
           <div className="ml-auto flex items-center gap-6 lg:ml-0">
             <Link
               href="/donate"
-              className="hidden whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.12em] text-white/70 transition-colors hover:text-white md:inline lg:hidden xl:inline"
+              className="hidden whitespace-nowrap text-[13px] font-semibold uppercase tracking-[0.12em] text-white/70 transition-colors hover:text-white xl:inline"
             >
               Donate
             </Link>
             <Link
               href="/join"
-              className="inline-flex h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-ember px-6 text-[13px] font-bold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-gold"
+              className="hidden h-11 shrink-0 items-center whitespace-nowrap rounded-full bg-ember px-6 lg:inline-flex text-[13px] font-bold uppercase tracking-[0.12em] text-ink transition-colors hover:bg-gold"
             >
               Join Us
             </Link>
@@ -198,9 +198,24 @@ export default function Header() {
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
-              className="-mr-2 grid size-11 place-items-center text-white lg:hidden"
+              className="-mr-1 flex h-11 items-center gap-3 rounded-full pl-5 pr-4 text-white ring-1 ring-inset ring-white/20 transition-colors hover:ring-white/45 lg:hidden"
             >
-              {open ? <X className="size-6" /> : <Menu className="size-6" />}
+              <span className="text-[12px] font-bold uppercase tracking-[0.18em]">{open ? "Close" : "Menu"}</span>
+              {/* Two lines that cross into an X. */}
+              <span aria-hidden className="relative block h-3 w-5">
+                <span
+                  className={clsx(
+                    "absolute left-0 top-1/2 h-[2px] w-5 rounded-full bg-current transition-[translate,rotate] duration-500 ease-out-expo",
+                    open ? "translate-y-[-1px] rotate-45" : "-translate-y-[5px]"
+                  )}
+                />
+                <span
+                  className={clsx(
+                    "absolute right-0 top-1/2 h-[2px] rounded-full bg-current transition-[translate,rotate,width] duration-500 ease-out-expo",
+                    open ? "w-5 translate-y-[-1px] -rotate-45" : "w-3.5 translate-y-[3px]"
+                  )}
+                />
+              </span>
             </button>
           </div>
         </div>
@@ -215,7 +230,7 @@ export default function Header() {
             transition={{ duration: 0.3, ease }}
             className="fixed inset-0 z-40 overflow-y-auto bg-ink pt-[68px] text-white lg:hidden"
           >
-            <nav aria-label="Mobile" className="container-x flex min-h-full flex-col pb-10 pt-6">
+            <nav aria-label="Mobile" className="container-x flex min-h-full flex-col pb-[max(2rem,env(safe-area-inset-bottom))] pt-6">
               <ul>
                 {[{ label: "Home", href: "/" }, ...nav].map((item, i) => (
                   <motion.li
@@ -286,20 +301,41 @@ export default function Header() {
                   </motion.li>
                 ))}
               </ul>
-              <div className="mt-auto grid gap-3 pt-10">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5, ease }}
+                className="mt-auto pt-10"
+              >
                 <Link
                   href="/join"
-                  className="flex items-center justify-center rounded-full bg-ember py-4 text-sm font-bold uppercase tracking-[0.12em] text-ink"
+                  className="group flex items-center justify-between gap-4 rounded-[2rem] bg-ember p-2 pl-6 text-ink shadow-[0_20px_50px_-20px_rgba(247,148,29,0.7)]"
                 >
-                  Join the Movement
+                  <span className="py-2">
+                    <span className="block text-[11px] font-bold uppercase tracking-[0.18em] text-ink/60">Membership is open</span>
+                    <span className="mt-0.5 block text-xl font-extrabold">Join the Movement</span>
+                  </span>
+                  <span className="grid size-14 shrink-0 place-items-center rounded-full bg-ink text-ember transition-transform duration-300 group-hover:rotate-45 group-active:scale-95">
+                    <ArrowUpRight className="size-6" />
+                  </span>
                 </Link>
-                <Link
-                  href="/donate"
-                  className="flex items-center justify-center rounded-full py-4 text-sm font-bold uppercase tracking-[0.12em] ring-1 ring-white/25"
-                >
-                  Donate
-                </Link>
-              </div>
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <Link
+                    href="/donate"
+                    className="flex items-center justify-center rounded-full py-3.5 text-sm font-bold ring-1 ring-inset ring-white/20 transition-colors hover:ring-white/45"
+                  >
+                    Donate
+                  </Link>
+                  <a
+                    href={site.links.app}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-1.5 rounded-full py-3.5 text-sm font-bold ring-1 ring-inset ring-white/20 transition-colors hover:ring-white/45"
+                  >
+                    Open the app <ArrowUpRight className="size-4 text-ember" />
+                  </a>
+                </div>
+              </motion.div>
             </nav>
           </motion.div>
         )}
